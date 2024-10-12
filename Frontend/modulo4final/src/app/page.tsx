@@ -29,7 +29,7 @@ function App() {
 
       <div>
         <h2>Connect</h2>
-        {connectors.map((connector) => (
+        {connectors.slice(0, 1).map((connector) => (
           <button
             key={connector.uid}
             onClick={() => connect({ connector })}
