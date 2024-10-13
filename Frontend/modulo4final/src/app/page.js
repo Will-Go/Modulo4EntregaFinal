@@ -4,11 +4,12 @@ import {
   useConnect,
   useDisconnect,
   useReadContract,
-  useEnsName,
-  useBalance,
 } from "wagmi";
 
 import { CONTRACT_ABI } from "./abi";
+
+//COMPONENTS
+import WriteContract from "./WriteContract";
 
 function App() {
   const CONTRACT_ADDRESS = "0x1A6497397D9c0ac0557bfB396a937343a76750D8";
@@ -19,21 +20,21 @@ function App() {
   const { disconnect } = useDisconnect();
 
   const result = useReadContract({
-    abi:CONTRACT_ABI,
+    abi: CONTRACT_ABI,
     address: CONTRACT_ADDRESS,
     functionName: "balances",
-    args:[account.address]
-
+    args: [account.address],
   });
 
-  console.log(result)
 
   return (
-    <>
-      <div>
+    <div >
+      <div >
         <h1>Stacker</h1>
-      {result?.data  &&  <p>My balance: {Number(result.data)/10**18 }</p>}
         <h2>Account</h2>
+        {account.isConnected && (
+          <p>My balance: {Number(result.data) / 10 ** 18}</p>
+        )}
 
         <div>
           status: {account.status}
@@ -43,11 +44,17 @@ function App() {
           chainId: {account.chainId}
         </div>
 
-        {account.status === "connected" && (
+        {account.isConnected && (
           <button type="button" onClick={() => disconnect()}>
             Disconnect
           </button>
         )}
+        <div className=" mt-6">
+
+        {account.isConnected && <WriteContract/>}
+
+        </div>
+
       </div>
 
       <div>
@@ -64,7 +71,7 @@ function App() {
         <div>{status}</div>
         <div>{error?.message}</div>
       </div>
-    </>
+    </div>
   );
 }
 
