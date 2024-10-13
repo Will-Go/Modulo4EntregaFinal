@@ -16,7 +16,7 @@ describe("StackingTest", function () {
 
     let contractArtifact: string;
     if (contractAddress) {
-      // For the autograder.
+
       contractArtifact = `contracts/download-${contractAddress}.sol:Staker`;
     } else {
       contractArtifact = "contracts/Staker.sol:Staker";
@@ -27,7 +27,6 @@ describe("StackingTest", function () {
       exampleExternalContract = await ExampleExternalContract.deploy();
     });
 
-
     it("Debe de hacer deploy del Staker", async function () {
       const Staker = await ethers.getContractFactory(contractArtifact);
       stakerContract = (await Staker.deploy(await exampleExternalContract.getAddress())) as Staker;
@@ -35,7 +34,6 @@ describe("StackingTest", function () {
     });
 
     describe("stake()", function () {
-      
       it("El balance debe de subir al hacer stake()", async function () {
         const [owner] = await ethers.getSigners();
 
@@ -56,9 +54,6 @@ describe("StackingTest", function () {
         console.log("\t", "Balnce actualizado", ethers.formatEther(newBalance));
         expect(newBalance).to.equal(startingBalance + ethers.parseEther("0.001"));
       });
-
-      
-      
     });
   });
 });
