@@ -49,6 +49,10 @@ function App() {
             Disconnect
           </button>
         )}
+
+        <h2>
+        Staking Section
+        </h2>
         <div className=" mt-6">
 
         {account.isConnected && <WriteContract/>}
@@ -56,7 +60,8 @@ function App() {
         </div>
 
       </div>
-
+        
+      
       <div>
         <h2>Connect</h2>
         {connectors.slice(0, 1).map((connector) => (
